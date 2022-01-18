@@ -95,7 +95,7 @@ header {
 }
 
 .person > p {
-    color: rgb(109, 109, 109);
+    color: rgb(80, 80, 80);
     font-size: 18px;
 }
 
@@ -120,7 +120,7 @@ header {
 }
 
 .one_rec > button {
-    color: rgb(57, 99, 132);
+    color: rgb(7, 71, 120);
     border: none;
     font-size: medium;
     background-color: rgb(240, 240, 240);
@@ -159,7 +159,7 @@ header {
 }
 
 .user_story > p {
-    color: rgb(109, 109, 109);
+    color: rgb(80, 80, 80);
     line-height: 0;
     font-size: 14px;
 }
@@ -230,7 +230,7 @@ button {
 }
 
 .comment > button {
-    color: rgb(57, 99, 132);
+    color: rgb(7, 71, 120);
     border: none;
     font-size: medium;
     background-color: white;
@@ -251,7 +251,7 @@ button {
 }
 
 .interaction > button {
-    color: rgb(57, 99, 132);
+    color: rgb(7, 71, 120);
     border: none;
     font-size: medium;
     background-color: white;
