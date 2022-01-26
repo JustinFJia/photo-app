@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Photo App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
+
+<body>
+    {% for post in posts %}
+    <div class="card">
+        <div class="card_top">
+            <div class="post_heading">
+                <button><h2 style="font-family: Comfortaa, sans-serif; font-size: large; font-weight: bold;">{{ post['user']['username'] }}</h2></button>
+                <button aria-label="More Options"><i class="fas fa-ellipsis-h fa-lg"></i></button>
+            </div>
+    
+            <img src="{{ post['image_url'] }}}"
+                alt="photo from {{ post['user']['username'] }}'s post" />
+    
+            <div class="post_icons">
+                <section>
+                    <button aria-label="Like Post"><i class="far fa-heart fa-2x"></i></button>
+                    <button aria-label="Add a Comment"><i class="far fa-comment fa-2x"></i></button>
+                    <button aria-label="Share Post"><i class="far fa-paper-plane fa-2x"></i></button>
+                </section>
+                <section>
+                    <button aria-label="Bookmark Post"><i class="far fa-bookmark fa-2x"></i></button>
+                </section>
+            </div>
+    
+            <div class="post_text">
+                <div class="likes">
+                    <a href="">{{ post['likes'] }} likes</a>
+                </div>
+
+                {% if post['title']|length >= 100 %}
+                <div class="comment">
+                    <a href="">{{ post['user']['username'] }}</a> {{ post['title']|truncate(100) }}<button>View more</button>
+                </div>
+                {% endif %}
+
+                {% if post['title']|length < 100 %} 
+                <div class="comment">
+                    <a href="">{{ post['user']['username'] }}</a> {{ post['title']|truncate(100) }}
+                </div>
+                {% endif %}
+
+                {% if post['comments']|length > 1 %}
+                <div class="comment">
+                    <button style="text-align: left;">View all {{ post['comments']|length }} comments</button>
+                </div>
+                {% endif %}
+
+                {% if post['comments']|length > 0 %}
+                <div class="comment">
+                    <a href="">{{ post['comments'][0]['user']['username'] }}</a> {{ post['comments'][0]['text'] }}
+                </div>
+                {% endif %}
+    
+                <div class="time_posted">
+                    <p style="color: rgb(80, 80, 80); text-transform: uppercase;">{{ post['display_time'] }}</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="interaction">
+            <button aria-label="Open Emoticon Picker" style="color:black;"><i class="far fa-smile fa-2x"></i></button>
+            <input aria-label="Add a Comment" type="text" placeholder="Add a comment...">
+            <button>Post</button>
+        </div>
+    </div>
+    {% endfor %}
+</body>

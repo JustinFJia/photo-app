@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Photo App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
+
+<body>
+    <div class="recs">
+        <div class="me">
+            <img src="{{ user.get('profile_url') }}" alt="profile pic for {{ user.get('username') }}"/>
+            <button style="font-family: Comfortaa, sans-serif; font-size: xx-large; border: none; background-color: rgb(240, 240, 240);">
+                {{ user.get('username' )}}
+            </button>
+        </div>
+
+        <div class="others">
+            <h3>
+                Suggestions for you
+            </h3>
+
+            {% for user in suggestions %}
+            <div class="one_rec">
+                <img src="{{ user.get('profile_url')}}" alt="profile pic for {{ user.get('username') }}"/>
+                <div class="person">
+                    <a href="" style="font-size:large; text-align: left; background-color: rgb(240, 240, 240); font-weight: bold; text-decoration: none; color: black;">{{ user.get('username') }}</a>
+                    suggested for you
+                </div>
+                <button>follow</button>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</body>

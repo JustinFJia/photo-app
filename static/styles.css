@@ -16,8 +16,8 @@ header {
     align-items: center;
 }
 
-/* overall layout */
-/* stories and feed layout */
+/* Page Layout */
+
 .scrollable {
     display: flex;
     flex-direction: column;
@@ -25,16 +25,15 @@ header {
     padding-top: 90px;
 }
 
-/* scrollable content and recs panel layout */
 .full_layout {
     display: flex;
     align-items: start;
     gap: 10px;
-    margin-left: calc(50vw - 460px);
+    margin-left: calc(50vw - 500px);
 }
 
 
-/* navigation bar */
+/* Navigation Bar */
 .nav {
     display: flex;
     position: fixed;
@@ -44,27 +43,33 @@ header {
     width: 100vw;
 }
 
-.nav > h2 {
-    margin-left: 25px;
+.nav h2 {
+    margin-left: 20px;
 }
 
 .nav > .user {
-    /* border: solid 1px rgb(219, 219, 219); */
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 190px;
+    width: 250px;
+    margin-right: 20px;
+}
+
+.user > .myself {
+    width: 165px;
+    text-align: right;
+    font-size: medium;
 }
 
 
-/* recommendations panel */
+/* Recommendation panel */
 .recs {
     padding-top: 90px;
-    width: 300px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     position: fixed;
-    left: calc(50% + 160px);
+    left: calc(50% + 120px);
 }
 
 .recs > p {
@@ -72,26 +77,23 @@ header {
 }
 
 .me {
-    /* border: solid 1px rgb(197, 197, 197); */
     display: flex;
     align-items: center;
     height: 100px;
-    gap: 20px;
+    gap: 10px;
 }
 
 .me > img {
     height: 80%;
     border-radius: 50%;
-    margin-left: 10px;
+    margin-left: 8px;
 }
 
 .person {
-    /* border: solid 1px rgb(219, 219, 219); */
     display: flex;
     flex-direction: column;
-    align-content: center;
-    line-height: 0;
-    width: 50%;
+    width: 65%;
+    justify-content: center;
 }
 
 .person > p {
@@ -100,23 +102,23 @@ header {
 }
 
 .others {
-    /* border: solid 1px rgb(219, 219, 219); */
     display: flex;
     flex-direction: column;
 }
 
 .others > h3 {
     width: 90%;
-    margin-left: 15px;
+    margin-left: 10px;
+    color: rgb(80, 80, 80);
 }
 
-.others > .one_rec {
-    /* border: solid 1px rgb(219, 219, 219); */
+.one_rec {
     display: flex;
     align-items: center;
+    align-content: center;
     justify-content: space-around;
     height: 70px;
-    width: 98%;
+    width: 100%;
 }
 
 .one_rec > button {
@@ -127,16 +129,15 @@ header {
 }
 
 .one_rec > img {
-    height: 60%;
+    height: 70%;
     border-radius: 50%;
 }
 
 
-/* stories panel */
+/* Stories panel */
 .stories {
-    /* border: solid 1px rgb(219, 219, 219); */
     display: flex;
-    align-items: end;
+    align-items: center;
     height: 120px;
     width: 600px;
     background-color: white;
@@ -145,27 +146,38 @@ header {
 }
 
 .stories > .user_story {
-    /* border: solid 1px rgb(219, 219, 219); */
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 90%;
+    justify-content: center;
+    height: 80%;
+    width: 72px;
 }
 
-.user_story > img {
+.user_story img {
     border: solid 3px rgb(219, 219, 219);
-    height: 60%;
+    height: 65px;
     border-radius: 50%;
 }
 
-.user_story > p {
-    color: rgb(80, 80, 80);
-    line-height: 0;
-    font-size: 14px;
+.user_story > section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 20px;
+}
+
+.user_story button {
+    border: none;
+    width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
-/* news feed */
+/* News Feed */
 .card {
     width: 600px;
     background-color: white;
@@ -173,9 +185,6 @@ header {
     flex-direction: column;
 }
 
-span {
-    font-weight: bold;
-}
 
 .post_heading {
     border: solid 1px rgb(219, 219, 219);
@@ -191,13 +200,12 @@ span {
 }
 
 .post_icons {
-    /* border: solid 1px rgb(219, 219, 219); */
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 button {
@@ -206,13 +214,11 @@ button {
 }
 
 .post_icons > section {
-    /* border: solid 1px rgb(219, 219, 219); */
     display: flex;
     align-items: center;
 }
 
 .post_text {
-    /* border: solid 1px rgb(219, 219, 219); */
     display: flex;
     flex-direction: column;
     margin-left: 15px;
@@ -220,13 +226,8 @@ button {
 }
 
 .comment {
-    /* border: solid 1px rgb(219, 219, 219); */
     padding-top: 5px;
     padding-bottom: 5px;
-}
-
-.comment > h4, p {
-    line-height: 0.8px;
 }
 
 .comment > button {
@@ -234,6 +235,12 @@ button {
     border: none;
     font-size: medium;
     background-color: white;
+}
+
+.post_text a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 .card_top {
@@ -257,6 +264,7 @@ button {
     background-color: white;
 }
 
+
 input {
     border: none;
     width: 85%;
@@ -264,6 +272,7 @@ input {
 
 ::placeholder{
     font-size: 18px;
+    vertical-align: bottom;
 }
 
 
@@ -271,7 +280,7 @@ input {
 
 
 /* Tablet Media Query */
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
     .recs {
         display: none;
     }

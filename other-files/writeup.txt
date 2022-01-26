@@ -1,0 +1,36 @@
+Accessibility Anaylsis:
+1. What corrections did you have to make?
+There were a lot of empty buttons that didn't have any text that the WAVE
+Extension could read. To fix this I went back to add a description of what
+each button did with the aria-label command.
+
+There were a few contrast errors. I darkened the colors in those instances
+to increase the contrast.
+
+There were also no page regions, to fix it I added a <main> and <aside> tag
+
+There was also a missing h1 header. To fix it I switched the h2 header to an h1 header.
+
+There were also missing form label errors on the accessibility sites but 
+adding aria-labels similarly to the empty buttons seemed to fix the issues.
+
+2. I was able to fix all the accessibility errors alerts my photo app ran into.
+
+As for whether or not I think all accessibility problems are solvable, I think
+there are probably a few that cannot be as of now. One example is aspects that are
+dependent on the users--for example, in many photo apps like Instagram adding
+alternative text is not only hard to find, but is also dependent on the user
+posting the picture to add that text. While we as designers can make the option
+more visible (and should), I'm not sure what can be done to make sure users add in the
+alternative text (maybe making it required to do so or automating it, but I 
+don't think either is particularly plausible right now or a good idea).
+
+3. I think without the CSS the app is still "usable", all (or most) of the
+important aspects are fully tabbable and we have aria-labels that describe
+all the buttons functions. However, I do think without the CSS the balancing
+of the site gets really messy and can be hard to visually navigate.
+
+4. As it is now, I don't think my site is usable with images off. While 
+everything is still tabbable and labeled, some of the labels are not descriptive
+or indicative of what the image is (most of what I have right now) is just
+"Profile Picture for [User]", which doesn't tell us anything. 

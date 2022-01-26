@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Photo App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+</head>
+
+<body>
+    <div class="stories">
+        {% for story in stories %}
+        <div class="user_story">
+            <a href=""><img src="{{ story['user']['profile_url'] }}}" alt="profile pic for {{ story['user']['username'] }}"/></a>
+            <section> <button>{{ story['user']['username'] }}</button> </section>
+        </div>
+        {% endfor %}
+</div>
+
+</body>

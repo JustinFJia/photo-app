@@ -6,12 +6,16 @@
     <title>Photo App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 </head>
 
 <body>
-    <!-- navigation bar -->
+    {% include 'includes/navbar.html' %}
+
+    <!-- Just commenting everything out for now in case I need it at one point -->
+
+    <!--
     <div class="nav">
         <h2 style="font-family: Comfortaa, sans-serif;">Photo App</h2>
         <div class="user">
@@ -19,10 +23,27 @@
             <button style="color: rgb(7, 71, 120); border: none; background-color: white; font-size: medium;">Sign out</button>
         </div>
     </div>
+    -->
 
     <div class="full_layout">
+        <main>
         <div class="scrollable">
-            <!-- stories -->
+            {% include 'includes/stories.html' %}
+            {% include 'includes/cards.html' %}
+        </div>
+        </main>
+
+        <aside>
+            {% include 'includes/suggestions.html' %}
+        </aside>
+    </div>
+
+</body>
+
+</html>
+            <!-- Just commenting everything out for now in case I need it at one point -->
+
+            <!--
             <div class="stories">
                     <div class="user_story">
                         <img src="https://i.picsum.photos/id/860/200/200.jpg?hmac=xEnSgZhxWVFOWiVCBQzYpKUH7S5nFb7-QTZ8Hfqwq4M"
@@ -54,8 +75,10 @@
                         <p>jwright</p>
                     </div>
             </div>
+            -->
                 
             <!-- feed -->
+            <!-- 
             <div class="card">
                     <div class="card_top">
                         <div class="post_heading">
@@ -265,10 +288,11 @@
                         <input placeholder="Add a comment...">
                         <button>Post</button>
                     </div>
-                </div>
+                </div> 
+        </div> 
+        -->
 
-        </div>
-
+        <!--
         <div class="recs">
             <div class="me">
                 <img src="https://i.picsum.photos/id/828/200/200.jpg?hmac=XDYHUvU1Ha9LQrkNk3svII_91vwnQqo8C0yWMqCt6V8" alt="Fireworks in the sky"/>
@@ -332,11 +356,24 @@
 </body>
 
 </html>
+-->
 
 <!-- 
-I'm not entirely sure I understand what exactly I'm being asked (should this be more technical or conceptual?). 
-But, to be clear, I'm interpreting this question as "how would you make it easier for users to add alt-text to their posts?"
+I wasn't too sure whether the question asked about the technical aspect of how I'd code a feature like that in with html/CSS or whether
+it was more conceptual, since the hint alluded to the current feature being inaccessible (and thus the question could be asking about
+how to make it more accessible and/or easier to use). I opted to answer the more conceptual side of things since I think that made more
+sense with the context of the hint we were given. 
 
-To make it easier for users to add alt-text to their posts, I would add a text box under the comments text box for alt-text. 
-Doing so would make it so that it isn't some obscure feature that users would have to go way out of their way to find.
+The link showed that the "Write Alt Text" option was hidden under advanced settings, which are 1. hard to find, and 2. often hard to 
+navigate. Also being under advanced settings can imply that this is a niche feature that not a lot of people need, and thus need to
+go out of their way to actually use this feature, which is not true and potentially harmful to those who need the feature.
+
+I would first move the Write Alt Text option out of advanced settings and put it in the basic options that always pop up when someone 
+wants to make a new post. I would probably put it right under the captions option since they're both features where you add text, and
+grouping them together would make it easier to find and use. 
+
+The second thing I noticed was that the edit alt text option is in the image, and the color contrast isn't that good, which could make
+it easier to miss. I'd place the edit alt text option outside of the image and either dedicate it's own section or container, or add it
+to the bottom of the image where a lot of features are often added. People looking for specific features are likely to gravitate towards
+areas of the screen where there are a lot of feature icons, so I would probably add it there. 
 -->
