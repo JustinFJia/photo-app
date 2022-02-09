@@ -65,7 +65,7 @@ class BookmarkDetailEndpoint(Resource):
         try:
             int(id)
         except:
-            return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid post ID'}), mimetype="application/json", status=400)
 
         selected_bookmark = Bookmark.query.get(id)
 

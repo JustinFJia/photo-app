@@ -66,7 +66,7 @@ class PostDetailEndpoint(Resource):
         try:
             int(id)
         except:
-            return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid Post ID'}), mimetype="application/json", status=400)
 
         post = Post.query.get(id)
 
@@ -88,7 +88,7 @@ class PostDetailEndpoint(Resource):
         try:
             int(id)
         except:
-            return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid Post ID'}), mimetype="application/json", status=400)
 
         # a user can only delete their own post:
         post = Post.query.get(id)
@@ -107,7 +107,7 @@ class PostDetailEndpoint(Resource):
         try:
             int(id)
         except:
-            return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid Post ID'}), mimetype="application/json", status=400)
 
         post = Post.query.get(id)
 

@@ -51,7 +51,7 @@ class PostLikesDetailEndpoint(Resource):
         try:
             int(id)
         except:
-            return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid comment ID format'}), mimetype="application/json", status=400)
             
         selected_like = LikePost.query.get(id)
 
@@ -59,7 +59,7 @@ class PostLikesDetailEndpoint(Resource):
             return Response(json.dumps({'message': 'Error: You do not have permission to view this post'}), mimetype="application/json", status=404)
 
         if not selected_like or selected_like.user_id != self.current_user.id:
-            return Response(json.dumps({'message': 'Error: You '}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'Error: You do not have permission to unlike the selected post.'}), mimetype="application/json", status=404)
         
         LikePost.query.filter_by(id=id).delete()
         db.session.commit()

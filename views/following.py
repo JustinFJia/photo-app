@@ -56,7 +56,7 @@ class FollowingDetailEndpoint(Resource):
         try:
             int(id)
         except:
-            return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid user ID format'}), mimetype="application/json", status=400)
 
         unfollow = Following.query.get(id)
 

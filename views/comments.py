@@ -47,7 +47,7 @@ class CommentDetailEndpoint(Resource):
         try:
             int(id)
         except:
-            return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid comment ID format'}), mimetype="application/json", status=400)
             
         # check if comment ID exists
         if Comment.query.get(id) == None:
