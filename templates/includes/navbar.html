@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" >
-
-<head>
-    <meta charset="UTF-8">
-    <title>Photo App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" href="/static/styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-</head>
-
-<body>
-    <div class="nav">
-        <button><h1 style="font-family: Comfortaa, sans-serif; font-size: x-large;">Photo App</h1></button>
-        <div class="user">
-            <button class="myself">{{ user.get('username' )}}</button>
-            <button style="color: rgb(7, 71, 120); background-color: white; font-size: medium;">Sign out</button>
-        </div>
-    </div>
-</body>
+<nav class="main-nav">
+    <h1>Photo App</h1>
+    <ul>
+        <li>
+            {% if request.url_rule.endpoint == 'api_docs' %}
+                <a href="/">Home</a>
+            {% else %}
+                <a href="/api">API Docs</a>
+            {% endif %}
+        </li>
+        <li><span>{{ user.username }}</span></li>
+        <li><a href="#">Sign out</a></li>
+    </ul>
+</nav>

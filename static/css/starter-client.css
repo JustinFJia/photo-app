@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+nav {
+    padding: 10px;
+}
+
+a, a:visited, a:hover, a:link {
+    /* font-weight: 600; */
+    /* text-decoration: none; */
+    color: rgb(7, 71, 120);
+}
+a:hover {
+    color: #777;
+}
+
+button.link {
+    color: rgb(7, 71, 120);
+    background-color: transparent;
+    border-width: 0px;
+}
+button.link:hover {
+    color: #777;
+}
+
+nav {
+    position: sticky;
+    height: 70px;
+    width: 100vw;
+    background-color: white;
+    border-bottom: solid #dbdbdb 1px;
+    left: 0px;
+    top: 0px;
+    padding: 0px 20px;
+}
+
+nav, nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav ul {
+    list-style-type: none;
+}
+li {
+    margin-left: 30px;
+}
+
+h1 {
+    font-family: Comfortaa;
+}

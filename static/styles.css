@@ -21,10 +21,11 @@ header {
 .scrollable {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-top: 90px;
+    gap: 5vh;
+    padding-top: 5vh;
 }
 
+/* Scrollable content and Recs Panel Layout */
 .full_layout {
     display: flex;
     align-items: start;
@@ -32,8 +33,8 @@ header {
     margin-left: calc(50vw - 500px);
 }
 
-
-/* Navigation Bar */
+/*
+ Navigation Bar
 .nav {
     display: flex;
     position: fixed;
@@ -43,7 +44,7 @@ header {
     width: 100vw;
 }
 
-.nav h2 {
+.nav h1 {
     margin-left: 20px;
 }
 
@@ -60,11 +61,11 @@ header {
     text-align: right;
     font-size: medium;
 }
-
+*/
 
 /* Recommendation panel */
 .recs {
-    padding-top: 90px;
+    padding-top: 40px;
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -92,7 +93,7 @@ header {
 .person {
     display: flex;
     flex-direction: column;
-    width: 65%;
+    width: 55%;
     justify-content: center;
 }
 
@@ -110,18 +111,19 @@ header {
     width: 90%;
     margin-left: 10px;
     color: rgb(80, 80, 80);
+    font-size: large;
 }
 
 .one_rec {
     display: flex;
     align-items: center;
     align-content: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     height: 70px;
     width: 100%;
 }
 
-.one_rec > button {
+/*.one_rec > button {
     color: rgb(7, 71, 120);
     border: none;
     font-size: medium;
@@ -131,7 +133,7 @@ header {
 .one_rec > img {
     height: 70%;
     border-radius: 50%;
-}
+}*/
 
 
 /* Stories panel */
@@ -143,6 +145,7 @@ header {
     background-color: white;
     gap: 10px;
     padding-left: 10px;
+    overflow-x: scroll;
 }
 
 .stories > .user_story {
@@ -185,6 +188,11 @@ header {
     flex-direction: column;
 }
 
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+}
 
 .post_heading {
     border: solid 1px rgb(219, 219, 219);
@@ -216,6 +224,10 @@ button {
 .post_icons > section {
     display: flex;
     align-items: center;
+}
+
+.fas.fa-heart.fa-2x {
+    color: rgb(175, 21, 21);
 }
 
 .post_text {
@@ -276,6 +288,29 @@ input {
 }
 
 
+.follow {
+    background-color: rgba(52,147,230,255);
+    color: white;
+    border: none;
+    font-size: medium;
+    text-align: center;
+    width: 90px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+}
+
+.unfollow {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-size: medium;
+    text-align: center;
+    width: 90px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+}
 
 
 
@@ -294,10 +329,13 @@ input {
 /* Mobile Phone Media Query */
 @media only screen and (max-width: 600px) {
     .recs {
-        display:none;
+        display: none;
     }
     .stories {
         width: 98vw;
+    }
+    .scrollable {
+        justify-content: center;
     }
     .card {
         width: 98vw;
@@ -305,5 +343,8 @@ input {
     body {
         display: flex;
         justify-content: center;
+    }
+    ul:first-child {
+        display: none;
     }
 }
