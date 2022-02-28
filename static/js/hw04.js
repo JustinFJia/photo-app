@@ -162,7 +162,7 @@ const post2Html = post => {
                 </div>
             </div>
 
-            <div class="interaction" data-post-id="${post.id}">
+            <form class="interaction" data-post-id="${post.id}" method="POST" action="/api/comments">
                 <button class="normal_button" aria-label="open emoticon picker" style="color:black;"><i class="far fa-smile fa-2x"></i></button>
                 <input type="hidden"
                         value="${post.id}"
@@ -172,10 +172,11 @@ const post2Html = post => {
                         aria-label="add a comment" 
                         type="text" 
                         name="text"
+                        value=""
                         placeholder="Add a comment..."
-                        required>
-                <button class="normal_button" data-post-id="${post.id}">Post</button>
-            </div>
+                        required="true">
+                <button class="normal_button" type="submit" data-post-id="${post.id}">Post</button>
+            </form>
         </div>
     </div>
     `;

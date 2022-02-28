@@ -284,7 +284,7 @@ button {
     color: rgb(175, 21, 21);
 }
 
-.like.post:hover, .add.comment:hover, .share.post:hover, .bookmark.post:hover, .more.post.options:hover {
+.like.post:hover, .share.post:hover, .bookmark.post:hover, .more.post.options:hover {
     color:rgb(80, 80, 80)
 }
 
