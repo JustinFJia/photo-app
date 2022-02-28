@@ -65,7 +65,7 @@ header {
 
 /* Recommendation panel */
 .recs {
-    padding-top: 40px;
+    padding-top: 40px; 
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -128,13 +128,12 @@ header {
     border: none;
     font-size: medium;
     background-color: rgb(240, 240, 240);
-}
+}*/
 
 .one_rec > img {
     height: 70%;
     border-radius: 50%;
-}*/
-
+}
 
 /* Stories panel */
 .stories {
@@ -177,6 +176,7 @@ header {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 
@@ -219,15 +219,13 @@ header {
 button {
     background-color: white;
     border: none;
+    cursor: pointer;
 }
+
 
 .post_icons > section {
     display: flex;
     align-items: center;
-}
-
-.fas.fa-heart.fa-2x {
-    color: rgb(175, 21, 21);
 }
 
 .post_text {
@@ -247,6 +245,7 @@ button {
     border: none;
     font-size: medium;
     background-color: white;
+    cursor: pointer;
 }
 
 .post_text a {
@@ -257,6 +256,10 @@ button {
 
 .card_top {
     border: solid 1px rgb(219, 219, 219); 
+}
+
+.view.all.comments:hover {
+    color:rgb(80, 80, 80);
 }
 
 .interaction {
@@ -274,8 +277,16 @@ button {
     border: none;
     font-size: medium;
     background-color: white;
+    cursor: pointer;
 }
 
+.fas.fa-heart.fa-2x {
+    color: rgb(175, 21, 21);
+}
+
+.like.post:hover, .add.comment:hover, .share.post:hover, .bookmark.post:hover, .more.post.options:hover {
+    color:rgb(80, 80, 80)
+}
 
 input {
     border: none;
@@ -286,7 +297,6 @@ input {
     font-size: 18px;
     vertical-align: bottom;
 }
-
 
 .follow {
     background-color: rgba(52,147,230,255);
@@ -312,6 +322,112 @@ input {
     border-radius: 5px;
 }
 
+.modal-bg {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(50, 50, 50, 0.8);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close.post {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.modal {
+    background-color: white;
+    width: 80vw;
+    height: 80vh;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.modal > img {
+    object-fit: cover;
+    height: 100%;
+    width: 67%;
+    position: sticky;
+}
+
+.fas.fa-xmark.fa-2x {
+    color: white;
+}
+
+.detailed.post.text {
+    /* border: 1px solid red; */
+    width: 33%;
+    overflow-y: scroll;
+}
+
+.post.creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    background-color: white;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+}
+
+.post.creator > img {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
+
+.scrollable.text {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding-top: 0px;
+}
+
+.post.comment {
+    /* border: solid 1px gray; */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.post.comment > img {
+    width: 10%;
+    height:10%;
+    border-radius: 50%;
+}
+
+.post.comment > button {
+    color: black;
+    cursor: pointer;
+}
+
+.comment.text {
+    width: 70%;
+}
+
+.comment.text > a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.comment.text > p {
+    text-transform: uppercase;
+    color: rgb(80, 80, 80);
+}
 
 
 /* Tablet Media Query */
