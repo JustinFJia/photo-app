@@ -27,6 +27,7 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET')
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies"]
 app.config["JWT_COOKIE_SECURE"] = False
+app.config['PROPAGATE_EXCEPTIONS'] = True 
 jwt = flask_jwt_extended.JWTManager(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL')
