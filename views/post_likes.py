@@ -1,14 +1,17 @@
 from flask import Response
+import flask
 from flask_restful import Resource
 from models import LikePost, db
 import json
 from . import can_view_post
+import flask_jwt_extended
 
 class PostLikesListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def post(self, post_id):
         # Your code here
         user_id = self.current_user.id
@@ -17,11 +20,11 @@ class PostLikesListEndpoint(Resource):
         try: 
             post_id = int(post_id)
         except: 
-            return Response(json.dumps({'message': 'Invalid post ID format'}), mimetype="application/json", status=400)
+            return Response(json.dumps({'message': 'Invalid post ID format.'}), mimetype="application/json", status=400)
         
         # can't like a post you can't view
         if not can_view_post(post_id, self.current_user):
-            return Response(json.dumps({'message': 'Error: You do not have permission to view or like this post'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'Error: You do not have permission to view or like this post.'}), mimetype="application/json", status=404)
 
         # get the user's current likes
         current_likeposts_tuples = (
@@ -48,6 +51,7 @@ class PostLikesDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def delete(self, post_id, id):
         # Your code here
         # check comment ID format
@@ -81,12 +85,12 @@ def initialize_routes(api):
         PostLikesListEndpoint, 
         '/api/posts/<post_id>/likes', 
         '/api/posts/<post_id>/likes/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
 
     api.add_resource(
         PostLikesDetailEndpoint, 
         '/api/posts/<post_id>/likes/<id>', 
         '/api/posts/<post_id>/likes/<id>/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

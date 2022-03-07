@@ -3,12 +3,14 @@ from flask_restful import Resource
 from models import Bookmark, db
 import json
 from . import can_view_post
+import flask_jwt_extended
 
 class BookmarksListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def get(self):
         # Your code here
         bookmarks = Bookmark.query.filter_by(user_id=self.current_user.id)
@@ -19,6 +21,7 @@ class BookmarksListEndpoint(Resource):
 
         return Response(json.dumps(data), mimetype="application/json", status=200)
 
+    @flask_jwt_extended.jwt_required()
     def post(self):
         body = request.get_json('post_id')
         new_post_id = body.get('post_id')
@@ -60,6 +63,7 @@ class BookmarkDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def delete(self, id):
         # Your code here
         try:
@@ -86,12 +90,12 @@ def initialize_routes(api):
         BookmarksListEndpoint, 
         '/api/bookmarks', 
         '/api/bookmarks/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
 
     api.add_resource(
         BookmarkDetailEndpoint, 
         '/api/bookmarks/<id>', 
         '/api/bookmarks/<id>',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

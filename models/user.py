@@ -50,6 +50,7 @@ class User(db.Model):
             'username': self.username,
             'email': self.email,
             'image_url': self.image_url,
-            'thumb_url': self.thumb_url
+            'thumb_url': self.thumb_url,
+            'password': self.password_plaintext
         }         
 

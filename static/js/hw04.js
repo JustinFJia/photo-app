@@ -13,7 +13,7 @@ const story2Html = story => {
 
 // fetch stories from your API endpoint:
 const displayStories = () => {
-    fetch('https://justinphotoapp.herokuapp.com/api/stories')
+    fetch('/api/stories')
         .then(response => response.json())
         .then(stories => {
             const html = stories.map(story2Html).join('\n');
@@ -44,7 +44,7 @@ const suggestion2Html = suggestion => {
 
 const displayProfile = () => {
     let html = '';
-    fetch('https://justinphotoapp.herokuapp.com/api/profile')
+    fetch('/api/profile')
         .then(response => response.json())
         .then(me => {
             html += `
@@ -59,7 +59,7 @@ const displayProfile = () => {
 // draws the entire right panel
 const displaySuggestions = () => {
     let html = '';
-    fetch('https://justinphotoapp.herokuapp.com/api/suggestions/')
+    fetch('/api/suggestions/')
         .then(response => response.json())
         .then(suggestions => {
             html += `
@@ -185,7 +185,13 @@ const post2Html = post => {
 
 // fetch posts from your API endpoint:
 const displayPosts = () => {
-    fetch('https://justinphotoapp.herokuapp.com/api/posts/')
+    fetch('/api/posts/', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+    },
+})
         .then(response => response.json())
         .then(posts => {
             const html = posts.map(post2Html).join('\n');
@@ -208,7 +214,7 @@ const showPostDetail = ev => {
         more_disabled_buttons[i].setAttribute('tabindex', '-1');
     };
     
-    fetch(`https://justinphotoapp.herokuapp.com/api/posts/${elem.dataset.postId}`)
+    fetch(`/api/posts/${elem.dataset.postId}`)
         .then(response => response.json())
         .then(post => {
             let html = '';
@@ -324,10 +330,11 @@ const likePost = (postId, elem) => {
         document.querySelector(`.like${postId}`).innerHTML = `<a href="">${ likes_count } likes</a>`;
     };
 
-    fetch(`https://justinphotoapp.herokuapp.com/api/posts/${postId}/likes`, {
+    fetch(`/api/posts/${postId}/likes`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData)
     })
@@ -358,9 +365,13 @@ const unlikePost = (elem) => {
         document.querySelector(`.like${elem.dataset.postId}`).innerHTML = `<a href="">${ likes_count } likes</a>`;
     };
 
-    const deleteURL = `https://justinphotoapp.herokuapp.com/api/posts/${elem.dataset.postId}/likes/${elem.dataset.likeId}`;
+    const deleteURL = `/api/posts/${elem.dataset.postId}/likes/${elem.dataset.likeId}`;
     fetch(deleteURL, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+        },
     })
     .then(response => response.json())
     .then(data => {
@@ -397,10 +408,11 @@ const bookmarkPost = (postId, elem) => {
         'post_id': postId
     };
 
-    fetch("https://justinphotoapp.herokuapp.com/api/bookmarks/", {
+    fetch("/api/bookmarks/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData)
     })
@@ -419,9 +431,13 @@ const bookmarkPost = (postId, elem) => {
 }
 
 const unbookmarkPost = (elem) => {
-    const deleteURL = `https://justinphotoapp.herokuapp.com/api/bookmarks/${elem.dataset.bookmarkId}`;
+    const deleteURL = `/api/bookmarks/${elem.dataset.bookmarkId}`;
     fetch(deleteURL, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+        },
     })
     .then(response => response.json())
     .then(data => {
@@ -455,10 +471,11 @@ const followUser = (userId, elem) => {
         "user_id": userId
     };
     
-    fetch("https://justinphotoapp.herokuapp.com/api/following", {
+    fetch("/api/following", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': getCookie('csrf_access_token')
             },
             body: JSON.stringify(postData)
         })
@@ -476,9 +493,13 @@ const followUser = (userId, elem) => {
 const unfollowUser = (followingId, elem) => {
     // issue a delete request:
     // followingId = String(followingId);
-    const deleteURL = `https://justinphotoapp.herokuapp.com/api/following/${followingId}`;
+    const deleteURL = `/api/following/${followingId}`;
     fetch(deleteURL, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': getCookie('csrf_access_token')
+            },
         })
         .then(response => response.json())
         .then(data => {
@@ -497,6 +518,22 @@ const initPage = () => {
     displayProfile();
     displaySuggestions();
     displayPosts();
+};
+
+const getCookie = key => {
+    let name = key + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 };
 
 // invoke init page to display stories:

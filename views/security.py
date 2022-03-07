@@ -2,6 +2,7 @@ from models import Post, Comment
 from flask import Response, request
 from views import can_view_post
 import json
+import flask_jwt_extended
 
 def get_does_not_exist_response(model_name, id):
     return Response(
