@@ -23,21 +23,21 @@ class BookmarksListEndpoint(Resource):
 
     @flask_jwt_extended.jwt_required()
     def post(self):
-        body = request.get_json('post_id')
-        new_post_id = body.get('post_id')
-        post_id = body.get('post_id')
-        user_id = self.current_user.id
-        
-        # check if post ID in correct format
-        try: 
-            post_id = int(post_id)
-        except: 
-            return Response(json.dumps({'message': 'Invalid post ID'}), mimetype="application/json", status=400)
+        # Your code here
+        body = request.get_json()
 
-        # check if post is viewable by user
-        if not can_view_post(post_id, self.current_user):
-            return Response(json.dumps({'message': 'Error: You do not have permission to view or bookmark this post'}), mimetype="application/json", status=404)
-        
+        new_post_id = body.get('post_id')
+
+        # check if post ID is in the correct format
+        try: 
+            new_post_id = int(new_post_id)
+        except: 
+            return Response(json.dumps({'message': 'Invalid post ID.'}), mimetype="application/json", status=400)
+
+        # check if the user can view the post
+        if not can_view_post(new_post_id, self.current_user):
+            return Response(json.dumps({'message': 'You do not have permission to view or bookmark this post.'}), mimetype="application/json", status=404)
+
         # get the user's current bookmarks
         current_bookmarks_tuples = (
         db.session
@@ -53,7 +53,7 @@ class BookmarksListEndpoint(Resource):
         if new_post_id in bookmark_ids:
             return Response(json.dumps({'message': 'You already bookmarked this post.'}), mimetype="application/json", status=400)
 
-        new_bookmark = Bookmark(user_id, post_id)
+        new_bookmark = Bookmark(self.current_user.id, new_post_id)
         db.session.add(new_bookmark)
         db.session.commit()
         return Response(json.dumps(new_bookmark.to_dict()), mimetype="application/json", status=201)
@@ -66,15 +66,15 @@ class BookmarkDetailEndpoint(Resource):
     @flask_jwt_extended.jwt_required()
     def delete(self, id):
         # Your code here
-        try:
-            int(id)
-        except:
+        try: 
+            id = int(id)
+        except: 
             return Response(json.dumps({'message': 'Invalid post ID'}), mimetype="application/json", status=400)
 
         selected_bookmark = Bookmark.query.get(id)
 
         if not selected_bookmark or selected_bookmark.user_id != self.current_user.id:
-            return Response(json.dumps({'message': 'Error: This bookmark does not exist'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'This bookmark does not exist'}), mimetype="application/json", status=404)
         
         Bookmark.query.filter_by(id=id).delete()
         db.session.commit()

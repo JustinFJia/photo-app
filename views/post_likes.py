@@ -16,18 +16,18 @@ class PostLikesListEndpoint(Resource):
         # Your code here
         user_id = self.current_user.id
 
-        # check if post ID in in the correct format
+        # check post ID format
         try: 
             post_id = int(post_id)
         except: 
             return Response(json.dumps({'message': 'Invalid post ID format.'}), mimetype="application/json", status=400)
-        
+
         # can't like a post you can't view
         if not can_view_post(post_id, self.current_user):
-            return Response(json.dumps({'message': 'Error: You do not have permission to view or like this post.'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'You do not have permission to view or like this post.'}), mimetype="application/json", status=404)
 
         # get the user's current likes
-        current_likeposts_tuples = (
+        current_likes_tuples = (
         db.session
             .query(LikePost.post_id)
             .filter(LikePost.user_id == self.current_user.id)
@@ -35,10 +35,10 @@ class PostLikesListEndpoint(Resource):
         )
 
         # convert to a list of ints:
-        likepost_ids = [post_id for (post_id,) in current_likeposts_tuples]
+        current_likes_ids = [post_id for (post_id,) in current_likes_tuples]
 
-        # check if the specified post ID already exists in the list of user's bookmarked posts
-        if post_id in likepost_ids:
+        # check if the specified post ID already exists in the list of user's liked posts
+        if post_id in current_likes_ids:
             return Response(json.dumps({'message': 'You already liked this post.'}), mimetype="application/json", status=400)
         
         new_like = LikePost(user_id, post_id)
@@ -55,20 +55,20 @@ class PostLikesDetailEndpoint(Resource):
     def delete(self, post_id, id):
         # Your code here
         # check comment ID format
-        try:
-            int(id)
-        except:
-            return Response(json.dumps({'message': 'Invalid comment ID format'}), mimetype="application/json", status=400)
-            
+        try: 
+            id = int(id)
+        except: 
+            return Response(json.dumps({'message': 'Invalid post like ID format.'}), mimetype="application/json", status=400)
+
         selected_like = LikePost.query.get(id)
 
         # can't interact with a post you can't see
         if not can_view_post(post_id, self.current_user):
-            return Response(json.dumps({'message': 'Error: You do not have permission to view this post'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'You do not have permission to view this post.'}), mimetype="application/json", status=404)
 
         # can't remove a like you didn't place
         if not selected_like or selected_like.user_id != self.current_user.id:
-            return Response(json.dumps({'message': 'Error: You do not have permission to unlike the selected post.'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'You do not have permission to unlike the selected post.'}), mimetype="application/json", status=404)
         
         LikePost.query.filter_by(id=id).delete()
         db.session.commit()

@@ -19,18 +19,19 @@ class CommentListEndpoint(Resource):
         post_id = body.get('post_id')
         user_id = self.current_user.id # id of the user who is logged in
 
-        # check if text exists
-        if text == None:
-             return Response(json.dumps({'message': 'You cannot post a comment with no text'}), mimetype="application/json", status=400)
-
-       # check if post ID in in the correct format
+        # check if post ID is in the correct format
         try: 
             post_id = int(post_id)
         except: 
             return Response(json.dumps({'message': 'Invalid post ID format'}), mimetype="application/json", status=400)
 
+        # can't have a comment with no text
+        if text == None:
+            return Response(json.dumps({'message': 'You cannot post a comment with no text.'}), mimetype="application/json", status=400)
+
+        # you can't comment on a post you can't see
         if not can_view_post(post_id, self.current_user):
-            return Response(json.dumps({'message': 'Error: You do not have permission to view or comment on this post'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'You do not have permission to view or comment on this post'}), mimetype="application/json", status=404)
         
         # create comment:
         comment = Comment(text, user_id, post_id)
@@ -46,30 +47,32 @@ class CommentDetailEndpoint(Resource):
     @flask_jwt_extended.jwt_required()
     def delete(self, id):
         # Your code here
-        # a user can only delete their own comment:
-        try:
-            int(id)
-        except:
+        # check if the comment ID is in the correct format
+        try: 
+            id = int(id)
+        except: 
             return Response(json.dumps({'message': 'Invalid comment ID format'}), mimetype="application/json", status=400)
-            
-        # check if comment ID exists
+
+        # check if the comment ID exists
         if Comment.query.get(id) == None:
-            return Response(json.dumps({'message': 'Comment does not exist'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'The selected comment does not exist'}), mimetype="application/json", status=404)
 
-        # user can only delete their own comment
+        # a user can only delete their own comment:
         comment = Comment.query.get(id)
-
+            
         post = comment.post_id
 
-        # check if post ID works
-        if Post.query.get(post)==None:
-            return Response(json.dumps({'message': 'Error: Invalid Post ID'}), mimetype="application/json", status=404)
+        # check if the post ID is valid
+        if Post.query.get(post) == None:
+            return Response(json.dumps({'message': 'Invalid post ID.'}), mimetype="application/json", status=404)
 
+        # you can't edit comments on a post you can't view
         if not can_view_post(post, self.current_user):
-            return Response(json.dumps({'message': 'Error: You do not have permission to interact with this post'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'You do not have permission to interact with this post.'}), mimetype="application/json", status=404)
 
+        # you can't edit a comment that you didn't write
         if not comment or comment.user_id != self.current_user.id:
-            return Response(json.dumps({'message': 'Error: You do not have permission to delete this comment or this comment does not exist'}), mimetype="application/json", status=404)
+            return Response(json.dumps({'message': 'You do not have permission to delete this comment.'}), mimetype="application/json", status=404)
        
         Comment.query.filter_by(id=id).delete()
         db.session.commit()
